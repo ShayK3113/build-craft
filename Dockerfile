@@ -1,6 +1,6 @@
-FROM python:3.6.8-jessie
+FROM python:3.7.2-alpine3.9
 
-RUN apt-get update && \
-    apt-get install -y python3-distutils-extra git
+RUN apk update && \
+    apk add git bash bash-completion
 
 RUN git clone https://github.com/ShayK3113/build-craft.git

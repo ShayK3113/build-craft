@@ -96,6 +96,9 @@ def main():
     try:
         while True:
             cmd = input("@: ").lower()
+            if len(cmd) == 0:
+                continue
+                
             parts = cmd.split()
             if parts[0] == "piramyd":
                 piramyd(parts[1:])
