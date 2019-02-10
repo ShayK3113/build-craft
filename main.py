@@ -2,6 +2,7 @@ import mcrcon
 import config
 import sys
 import math
+from PIL import Image
 
 command_fill = "fill {x1} {y1} {z1} {x2} {y2} {z2} {block_name} replace"
 command_setblock = "setblock {x} {y} {z} {block_name} replace"
@@ -86,6 +87,63 @@ def cylinder(args):
             centerY = int(args[1])
             circle([args[0], centerY + i, args[2], args[3], "horizontal", args[5]])
 
+def drawImage(args):
+    if len(args) < 4:
+        print("usage: image x, y, z, image_path")
+        return
+
+    x = int(args[0])
+    y = int(args[1])
+    z = int(args[2])
+    img = Image.open(args[3])
+    size = 200, 200
+    img.thumbnail(size, Image.ANTIALIAS)
+    newimg = img.convert(mode='P', colors=16)
+    width, height = newimg.size
+    for i in range(width):
+        for j in range(height):
+           pixel = newimg.getpixel((i,j))
+           if pixel > 0:
+                color = pixel % 16
+                block_name = "white_wool"
+                if color == 1:
+                    block_name = "orange_wool"
+                elif color == 2:
+                    block_name = "magenta_wool"
+                elif color == 3:
+                    block_name = "light_blue_wool"
+                elif color == 4:
+                    block_name = "yellow_wool"
+                elif color == 5:
+                    block_name = "lime_wool"
+                elif color == 6:
+                    block_name = "pink_wool"
+                elif color == 7:
+                    vlock_name = "gray_wool"
+                elif color == 8:
+                    block_name = "light_gray_wool"
+                elif color == 9:
+                    block_name = "cyan_wool"
+                elif color == 10:
+                    vlock_name = "purple_wool"
+                elif color == 11:
+                    block_name = "blue_wool"
+                elif color == 12:
+                    block_name = "light_blue_wool"
+                elif color == 13:
+                    vlock_name = "brown_wool"
+                elif color == 14:
+                    block_name = "green_wool"
+                elif color == 15:
+                    block_name = "red_wool"
+                elif color == 16:
+                    vlock_name = "black_wool"
+
+                response = rcon.command(command_setblock.format(x=x + i, y=y+j, z=z ,block_name=block_name  ))
+                if response:
+                    print("  %s" % response)
+    
+
 def main():
     conf = config.Config()
     
@@ -108,6 +166,8 @@ def main():
                 circle(parts[1:])
             elif parts[0] == "cylinder":
                 cylinder(parts[1:])
+            elif parts[0] == "image":
+                drawImage(parts[1:])
         
     except KeyboardInterrupt:
         print("\n# disconnecting...")
