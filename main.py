@@ -61,11 +61,11 @@ def circle(args):
         cos = math.cos(rad)
         sin = math.sin(rad)
         if horizontal:
-            response = rcon.command(command_setblock.format(x=centerX + math.floor(radius * cos), y=centerY, z=centerZ  + math.floor(radius * sin), block_name=args[5]))
+            response = rcon.command(command_setblock.format(x=centerX + math.floor(radius * cos), y=centerY, z=centerZ  + math.floor(radius * sin), block_name=args[5] + " 0"))
             if response:
                 print("  %s" % response)
         elif vertical:
-            response = rcon.command(command_setblock.format(x=centerX + math.floor(radius * cos), y=centerY + math.floor(radius * sin), z=centerZ, block_name=args[5]))
+            response = rcon.command(command_setblock.format(x=centerX + math.floor(radius * cos), y=centerY + math.floor(radius * sin), z=centerZ, block_name=args[5] + " 0"))
             if response:
                 print("  %s" % response)
     
@@ -105,39 +105,56 @@ def drawImage(args):
            pixel = newimg.getpixel((i,j))
            if pixel > 0:
                 color = pixel % 16
-                block_name = "white_wool"
+                #block_name = "white_wool"
+                block_name = "wool 0"
                 if color == 1:
-                    block_name = "orange_wool"
+                    #block_name = "yellow_wool"
+                    block_name = "wool 4"
                 elif color == 2:
-                    block_name = "magenta_wool"
+                    #block_name = "magenta_wool"
+                    block_name = "wool 2"
                 elif color == 3:
-                    block_name = "light_blue_wool"
+                    #block_name = "light_blue_wool"
+                    block_name = "wool 3"
                 elif color == 4:
-                    block_name = "yellow_wool"
+                    #block_name = "orange_wool"
+                    block_name = "wool 1"
                 elif color == 5:
-                    block_name = "lime_wool"
+                    #block_name = "lime_wool"
+                    block_name = "wool 5"
                 elif color == 6:
-                    block_name = "pink_wool"
+                    #block_name = "pink_wool"
+                    block_name = "wool 6"
                 elif color == 7:
-                    vlock_name = "gray_wool"
+                    #block_name = "gray_wool"
+                    block_name = "wool 7"
                 elif color == 8:
-                    block_name = "light_gray_wool"
+                    #block_name = "light_gray_wool"
+                    block_name = "wool 8"
                 elif color == 9:
-                    block_name = "cyan_wool"
+                    #block_name = "cyan_wool"
+                    block_name = "wool 9"
                 elif color == 10:
-                    vlock_name = "purple_wool"
+                    #block_name = "purple_wool"
+                    block_name = "wool 10"
                 elif color == 11:
-                    block_name = "blue_wool"
+                    #block_name = "blue_wool"
+                    block_name = "wool 11"
                 elif color == 12:
-                    block_name = "light_blue_wool"
+                    #block_name = "light_blue_wool"
+                    block_name = "wool 12"
                 elif color == 13:
-                    vlock_name = "brown_wool"
+                    #block_name = "brown_wool"
+                    block_name = "wool 13"
                 elif color == 14:
-                    block_name = "green_wool"
+                    #block_name = "green_wool"
+                    block_name = "wool 14"
                 elif color == 15:
-                    block_name = "red_wool"
-                elif color == 16:
-                    vlock_name = "black_wool"
+                    #block_name = "red_wool"
+                    block_name = "wool 15"
+               # elif color == 16:
+               #     #block_name = "black_wool"
+               #     block_name = "wool 16"
 
                 response = rcon.command(command_setblock.format(x=x + i, y=y+j, z=z ,block_name=block_name  ))
                 if response:
